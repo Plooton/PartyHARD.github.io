@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale.0">
+  <title>Card Game</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Material Design Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #ff9966, #ff5e62);
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    #content.expanded {
+      max-height: 500px;
+      transition: max-height 0.3s ease-in;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex justify-center">
+    <div class="bg-white shadow-md p-6 rounded-lg w-96">
+      <div id="content" class="text-center">
+        <!-- Content will be inserted here by JavaScript -->
+      </div>
+      <div class="flex justify-center mt-4">
+        <button id="bottle" class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <span>🍾💋</span><br>
+          Бутылочка
+        </button>
+        <button id="truth" class="mx-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          <span >😱😏</span><br>
+          Правда или действие
+        </button>
+        <button id="never" class="mx-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+          <span >🤭❌</span><br>
+          Я никогда не
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript to handle button clicks -->
+  <script>
+    const contentEl = document.getElementById('content');
+    const buttons = document.querySelectorAll('button');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        buttons.forEach(btn => btn.classList.remove('bg-blue-700', 'bg-green-700', 'bg-red-700'));
+        // Add active class to the clicked button
+        button.classList.add('bg-' + button.id + '-700');
+        // Update content based on the button id
+        if(button.id  === "bottle"){
+          contentEl.innerHTML = `
+            <h2 class="text-2xl mb-4 ">${button.innerText}</h2>
+            <p class="text-gray-700">
+              Правила очень просты, случайнм образом будут выбраны 2 игрока которые должны будут поцеловаться
+
+          </p>
+          <br>
+          <a href="bottle.html" id="never" class="mx-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          Начать
+        </a>
+        <br><br>
+        `;
+          contentEl.classList.add('expanded');
+        }
+        if(button.id === "truth"){
+          contentEl.innerHTML = `
+            <h2 class="text-2xl mb-4 ">${button.innerText}</h2>
+            <p class="text-gray-700">
+              Игрок, на которого попадает очередь, выбирает один из двух вариантов: либо отвечает на вопрос "правда" честно, либо выполняет задание "действие", предложенное другими участниками.
+            </p><br>
+            <a href="truth.html" id="never" class="mx-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            Начать
+          </a><br>
+          <br>
+          `;
+          contentEl.classList.add('expanded');
+        }
+        if(button.id === "never"){
+          contentEl.innerHTML = `
+            <h2 class="text-2xl mb-4">${button.innerText}</h2>
+            <p class="text-gray-700">
+              Это игра, в которой участники по очереди делают утверждения о том, что они никогда не делали. Если другие игроки сделали то, что было названо, они должны выпить или выполнить какое-то предписанное действие.
+            </p><br>
+            <a href="never.html" id="never" class="mx-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            Начать
+          </a><br><br>
+          `;
+          contentEl.classList.add('expanded');
+        }
+        if(button.id === "never" && event.target.innerText === "Начать"){
+          contentEl.classList.remove('expanded');
+          contentEl.innerHTML = "";
+          // Add code to start the "Я никогда не" game here
+        }
+      });
+    });
+  </script>
+</body>
+</html>
