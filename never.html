@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale.0">
+  <title>Card Game</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Material Design Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #abff66, #5eb7ff);
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #content {
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    #content.expanded {
+      transition: max-height 0.3s ease-in;
+    }
+  </style>
+</head>
+<body>
+
+    
+  <div class="flex justify-center">
+    <div class="bg-white shadow-md p-6 rounded-lg w-96">
+        <div id="content" class="text-center">
+          <div id="massage" class="text-center p-2">
+            <p>Тут будут выводиться вопросы, если вы никогда такого не делали должны выполнить наказание, если же такое в вашей жизни случалось, то вам ничего делать не нужно </p>
+            <br>
+            <hr>
+            <br>
+            <p>ТУТ Будут выводиться наказания </p>
+          </div>
+          <button id="start-game" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Начать</button>
+          <i class="material-icons text-gray-600 absolute top-2 left-2 cursor-pointer" id="back-button" ><a href="index.html">arrow_back</a></i>
+        </div>
+    </div>
+</div>
+            
+</body>
+</html>
