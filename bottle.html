@@ -30,6 +30,17 @@
       max-height: 500px;
       transition: max-height 0.3s ease-in;
     }
+    .kissing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+#players-container > div {
+  flex: 1;
+  text-align: center;
+}
   </style>
 </head>
 <body >
@@ -40,8 +51,11 @@
               <button id="add-player" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Добавить</button>
               <div id="players-list" class="mt-4 overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200 scrollbar-thumb-rounded scrollbar-track-rounded h-64"></div>
               <button id="start-game" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 hidden">Начать</button>
-              <div id="player1"></div>
-            <div id="player2"></div>
+              <div id="players-container" class="kissing">
+                <div id="player1" class="text-2xl"></div>
+                <span id="kiss" class="text-2xl hidden">💋</span>
+                <div id="player2" class="text-2xl"></div>
+              </div>
               <button id="spin" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 hidden">Крутить</button>
               <i class="material-icons text-gray-600 absolute top-2 left-2 cursor-pointer" id="back-button" ><a href="index.html">arrow_back</a></i>
             </div>
@@ -56,6 +70,7 @@
     const spin = document.getElementById('spin');
     const player1El = document.getElementById('player1');
     const player2El = document.getElementById('player2');
+    const kiss = document.getElementById('kiss');
 
 let players = [];
 addPlayer.addEventListener('click', () => {
@@ -94,115 +109,32 @@ function renderPlayersList() {
         startGame.classList.add('hidden');
     }
 }
-function clearPlayers() {
-  document.getElementById('player1').textContent = '';
-  document.getElementById('player2').textContent = '';
-}
-
 startGame.addEventListener('click', () => {
-  startGame.classList.add('hidden');
-  spin.classList.remove('hidden');
-  clearPlayers();
+    playersList.classList.add('hidden');
+    addPlayer.classList.add('hidden');
+    playerInput.classList.add('hidden');
+    startGame.classList.add('hidden');
 
-  // Add names to the array and remove them from the screen
-  players = players.map((name) => {
-    const playerItem = document.querySelector(`[data-player-name="${name}"]`);
-    if (playerItem) {
-      playerItem.remove();
-    }
-    return name;
-  });
-
-  let player1, player2;
-  do {
-    player1 = players[Math.floor(Math.random() * players.length)];
-    player2 = players[Math.floor(Math.random() * players.length)];
-  } while (player1 === player2 || player1.textContent === '' || player2.textContent === '' || player1.textContent === ' ' || player2.textContent === ' ');
-  player1El.textContent = player1;
-  player2El.textContent = player2;
-
-  // Remove "Add Player" button and input field
-  playersList.classList.add('hidden');
-  playerInput.classList.add('hidden');
-  addPlayer.classList.add('hidden');
-});
-
-
-
-addPlayer.addEventListener('click', () => {
- const playerName = playerInput.value.trim();
- if (playerName !== '') {
-   players.push(playerName);
-   renderPlayersList();
-   playerInput.value = '';
- }
-});
-
-function renderPlayersList() {
- playersList.innerHTML = '';
- players.forEach((player, index) => {
-   const playerItem = document.createElement('div');
-   playerItem.className = 'flex justify-between items-center p-2 border border-gray-300 rounded mb-2';
-   const playerNameSpan = document.createElement('span');
-   playerNameSpan.textContent = player;
-   const removeButton = document.createElement('button');
-   removeButton.textContent = 'Remove';
-   removeButton.className = 'bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded';
-   removeButton.addEventListener('click', () => {
-     players = players.filter((playerInArray) => playerInArray !== player);
-     renderPlayersList();
-   });
-   playerItem.appendChild(playerNameSpan);
-   playerItem.appendChild(removeButton);
-   playersList.appendChild(playerItem);
- });
- if (players.length >= 2) {
-   startGame.classList.remove('hidden');
- } else {
-   startGame.classList.add('hidden');
- }
-}
-
-
-startGame.addEventListener('click', () => {
-  startGame.classList.add('hidden');
-  spin.classList.remove('hidden');
-  players = players.filter((name) => name !== ''); // Remove empty strings
-  players = [...new Set(players)]; // Remove duplicates
-  if (players.length < 2) {
-    alert("You need to add at least 2 players");
-    startGame.classList.remove('hidden');
-    spin.classList.add('hidden');
-    return;
-  }
-  clearPlayers();
-  const player1 = players[Math.floor(Math.random() * players.length)];
-  const player2 = players[Math.floor(Math.random() * players.length)];
-  while (player1 === player2) {
-    player2 = players[Math.floor(Math.random() * players.length)];
-  }
-  player1El.textContent = player1;
-  player2El.textContent = player2;
-  playersList.innerHTML = '';
-  playerInput.value = '';
-  addPlayer.classList.add('hidden');
-  addPlayer.firstChild.data = '🍾';
-});
+    spin.classList.remove('hidden');
+    kiss.classList.remove('hidden');
+    player1El.innerHTML = players[Math.floor(Math.random()*players.length)]
+    player2El.innerHTML = players[Math.floor(Math.random()*players.length)]
+} );
 
 spin.addEventListener('click', () => {
- if (players.length < 2) {
-   alert("You need to add at least 2 players");
-   return;
- }
- clearPlayers();
- const player1 = players[Math.floor(Math.random() * players.length)];
- const player2 = players[Math.floor(Math.random() * players.length)];
- while (player1 === player2 || player1 === null || player2 === null || player1 === null || player2 === null) {
-   player2 = players[Math.floor(Math.random() * players.length)];
- }
- player1El.textContent = player1;
- player2El.textContent = player2;
-});
+    startGame.classList.add('hidden');
+    
+    p1 =  players[Math.floor(Math.random()*players.length)];
+    p2 =  players[Math.floor(Math.random()*players.length)];
+    if (p1 === p2){
+      p1 =  players[Math.floor(Math.random()*players.length)];
+      p2 =  players[Math.floor(Math.random()*players.length)];
+    }
+    
+    player1El.innerHTML = p1
+    player2El.innerHTML = p2
+} );
+
 
 </script>
 </body>
