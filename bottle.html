@@ -14,10 +14,11 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: linear-gradient(to right, #ff9966, #ff5e62);
+      background: linear-gradient(to right, #ff66de, #810899);
       margin: 0;
       padding: 0;
-      overflow: hidden;
+
+
     }
 
     #content {
@@ -31,18 +32,18 @@
     }
   </style>
 </head>
-<body>
-    <div class="flex justify-center">
+<body >
+    <div class="flex justify-center" >
         <div class="bg-white shadow-md p-6 rounded-lg w-96">
             <div id="content" class="text-center"><br>
               <a href="index.html"  class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mt-4 bg-green-500 ">Домой</a><br><br><br>
               <input type="text" id="player-input" class="w-full mb-4 p-2 border border-gray-300 rounded" placeholder="Enter player name">
-              <button id="add-player" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Player</button>
-              <div id="players-list" class="mt-4"></div>
-              <button id="start-game" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 hidden">Start Game</button>
+              <button id="add-player" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Добавить</button>
+              <div id="players-list" class="mt-4 overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200 scrollbar-thumb-rounded scrollbar-track-rounded h-64"></div>
+              <button id="start-game" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 hidden">Начать</button>
               <div id="player1"></div>
-<div id="player2"></div>
-              <button id="spin" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mt-4 bg-green-500 hidden">Spin</button>
+            <div id="player2"></div>
+              <button id="spin" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 hidden">Куртить</button>
             </div>
         </div>
     </div>
@@ -116,7 +117,7 @@ startGame.addEventListener('click', () => {
   do {
     player1 = players[Math.floor(Math.random() * players.length)];
     player2 = players[Math.floor(Math.random() * players.length)];
-  } while (player1 === player2 || player1 === '' || player2 === '' || player1 === ' ' || player2 === ' ');
+  } while (player1 === player2 || player1.textContent === '' || player2.textContent === '' || player1.textContent === ' ' || player2.textContent === ' ');
   player1El.textContent = player1;
   player2El.textContent = player2;
 
