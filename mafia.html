@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.0">
-  <title>Я никогда не  Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale.0">
+  <title>Card Game</title>
+  <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Material Design Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     body {
@@ -12,35 +14,24 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: linear-gradient(to right, #1b1b1b, #990827);
+      background: linear-gradient(to right, #202020, #6b0305);
       margin: 0;
       padding: 0;
     }
 
     #content {
-      overflow: hidden;
       transition: max-height 0.3s ease-out;
     }
 
     #content.expanded {
-      max-height: 500px;
       transition: max-height 0.3s ease-in;
-    }
-
-    #players-container > div {
-      flex: 1;
-      text-align: center;
-    }
-
-    .strikethrough {
-      text-decoration: line-through;
     }
   </style>
 </head>
 <body>
-  <div class="flex justify-center">
-    <div class="bg-white shadow-md p-6 rounded-lg w-96">
-      <div id="content" class="text-center"><br>
+    <div class="flex justify-center">
+        <div class="bg-white shadow-md p-6 rounded-lg w-96">
+            <div id="content" class="text-center"><br>
         <input type="text" id="player-input" class="w-full mb-4 p-2 border border-gray-300 rounded" placeholder="Enter player name">
         <button id="add-player" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Добавить</button>
         <div id="players-list" class="mt-4 overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200 scrollbar-thumb-rounded scrollbar-track-rounded h-64"></div>
