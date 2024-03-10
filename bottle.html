@@ -122,18 +122,25 @@ startGame.addEventListener('click', () => {
 } );
 
 spin.addEventListener('click', () => {
-    startGame.classList.add('hidden');
-    
-    p1 =  players[Math.floor(Math.random()*players.length)];
-    p2 =  players[Math.floor(Math.random()*players.length)];
-    if (p1 === p2){
-      p1 =  players[Math.floor(Math.random()*players.length)];
-      p2 =  players[Math.floor(Math.random()*players.length)];
+  startGame.classList.add('hidden');
+
+  let p1Index, p2Index;
+
+  while (true) {
+    p1Index = Math.floor(Math.random() * players.length);
+    p2Index = Math.floor(Math.random() * players.length);
+
+    if (p1Index !== undefined && p2Index !== undefined && p1Index !== p2Index) {
+      break;
     }
-    
-    player1El.innerHTML = p1
-    player2El.innerHTML = p2
-} );
+  }
+
+  const p1 = players[p1Index];
+  const p2 = players[p2Index];
+
+  player1El.innerHTML = p1;
+  player2El.innerHTML = p2;
+});
 
 
 </script>
