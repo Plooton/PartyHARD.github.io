@@ -122,7 +122,7 @@ startGame.addEventListener('click', () => {
       const playerIndex = players.indexOf(player);
       if (playerIndex > -1) {
         // Update player name with strikethrough in both lists
-        players[playerIndex] = players[playerIndex] + ' ( умер )';
+        players[playerIndex] = players[playerIndex];
 
         // Find the corresponding player item in the first list
         const playerListItem = playersList.querySelector(`[data-player-name="${player}"]`);
