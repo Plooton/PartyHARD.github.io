@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.0">
+  <title>Я никогда не  Game</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #1b1b1b, #990827);
+      margin: 0;
+      padding: 0;
+    }
+
+    #content {
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    #content.expanded {
+      max-height: 500px;
+      transition: max-height 0.3s ease-in;
+    }
+
+    #players-container > div {
+      flex: 1;
+      text-align: center;
+    }
+
+    .strikethrough {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex justify-center">
+    <div class="bg-white shadow-md p-6 rounded-lg w-96">
+      <div id="content" class="text-center"><br>
+        <input type="text" id="player-input" class="w-full mb-4 p-2 border border-gray-300 rounded" placeholder="Enter player name">
+        <button id="add-player" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Добавить</button>
+        <div id="players-list" class="mt-4 overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200 scrollbar-thumb-rounded scrollbar-track-rounded h-64"></div>
+        <div id="players-list-game" class="hidden mt-4 overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200 scrollbar-thumb-rounded scrollbar-track-rounded h-64"></div>
+        <button id="start-game" class="bg-green-500 hover:bg-green-700 text-white font- bold py-2 px-4 rounded mt-4 hidden">Начать</button>
+
+        <i class="material-icons text-gray-600 absolute top-2 left-2 cursor-pointer" id="back-button"><a href="index.html">arrow_back</a></i>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const playerInput = document.getElementById('player-input');
+    const playersList = document.getElementById('players-list');
+    const addPlayer = document.getElementById('add-player');
+    const startGame = document.getElementById('start-game');
+    const playersListGame = document.getElementById('players-list-game');
+
+    let players = [];
+
+    addPlayer.addEventListener('click', () => {
+      const playerName = playerInput.value.trim();
+      if (playerName !== '') {
+        players.push(playerName);
+        renderPlayersList();
+        playerInput.value = '';
+      }
+    });
+
+function renderPlayersList() {
+  playersList.innerHTML = '';
+  players.forEach((player, index) => {
+    const playerItem = document.createElement('div');
+    playerItem.className = 'flex justify-between items-center p-2 border border-gray-300 rounded mb-2';
+    playerItem.setAttribute('data-player-name', player);
+
+        playerItem.className = 'flex justify-between items-center p-2 border border-gray-300 rounded mb-2';
+        const playerNameSpan = document.createElement('span');
+        playerNameSpan.textContent = player;
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.className = 'bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded';
+        removeButton.addEventListener('click', () => {
+            players = players.filter((playerInArray) => playerInArray !== player);
+            renderPlayersList();
+        });
+        playerItem.appendChild(playerNameSpan);
+        playerItem.appendChild(removeButton);
+        playersList.appendChild(playerItem);
+    });
+    if (players.length >= 2) {
+        startGame.classList.remove('hidden');
+    } else {
+        startGame.classList.add('hidden');
+    }
+}
+
+startGame.addEventListener('click', () => {
+      // Hide initial list and show game list
+      playersList.classList.add('hidden');
+      addPlayer.classList.add('hidden');
+      playerInput.classList.add('hidden');
+      playersListGame.classList.remove('hidden');
+
+      playersListGame.innerHTML = '';
+
+      // Ensure at least one Mafia (using Math.ceil)
+      const numMafia = Math.ceil(players.length / 3);
+      let mafiaIndexes = [];
+
+      for (let i = 0; i < numMafia; i++) {
+        let index;
+        do {
+          index = Math.floor(Math.random() * players.length);
+        } while (mafiaIndexes.includes(index));
+
+        mafiaIndexes.push(index);
+      }
+
+      players.forEach((player, index) => {
+        const playerItem = document.createElement('div');
+        playerItem.className = 'flex justify-between items-center p-2 border border-gray-300 rounded mb-2';
+
+        // Assign Mafia role based on mafiaIndexes
+        if (mafiaIndexes.includes(index)) {
+          playerItem.textContent = player + ' (Мафия)';
+        } else {
+          playerItem.textContent = player + ' (Мирный житель)';
+        }
+
+        const diedButton = document.createElement('button');
+        diedButton.textContent = 'Умер (Died)';
+        diedButton.name = 'died-button';
+        diedButton.className = 'bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded ml-2';
+        diedButton.addEventListener('click', () => {
+          const playerIndex = players.indexOf(player);
+          if (playerIndex > -1) {
+            // Update player name with strikethrough instead of removing
+            players[playerIndex] = players[playerIndex] + ' ( умер )';
+            playerItem.classList.add('strikethrough');
+          }
+        });
+
+        playerItem.appendChild(diedButton);
+        playersListGame.appendChild(playerItem);
+      });
+    });
+  </script>
+</body>
+</html>
