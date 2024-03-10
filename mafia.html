@@ -14,7 +14,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: linear-gradient(to right, #202020, #6b0305);
+      background: linear-gradient(to right, #ff9966, #ff5e62);
       margin: 0;
       padding: 0;
     }
@@ -32,16 +32,15 @@
     <div class="flex justify-center">
         <div class="bg-white shadow-md p-6 rounded-lg w-96">
             <div id="content" class="text-center"><br>
-        <input type="text" id="player-input" class="w-full mb-4 p-2 border border-gray-300 rounded" placeholder="Enter player name">
+              <input type="text" id="player-input" class="w-full mb-4 p-2 border border-gray-300 rounded" placeholder="Enter player name">
         <button id="add-player" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Добавить</button>
         <div id="players-list" class="mt-4 overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200 scrollbar-thumb-rounded scrollbar-track-rounded h-64"></div>
         <div id="players-list-game" class="hidden mt-4 overflow-y-scroll scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200 scrollbar-thumb-rounded scrollbar-track-rounded h-64"></div>
         <button id="start-game" class="bg-green-500 hover:bg-green-700 text-white font- bold py-2 px-4 rounded mt-4 hidden">Начать</button>
 
-        <i class="material-icons text-gray-600 absolute top-2 left-2 cursor-pointer" id="back-button"><a href="index.html">arrow_back</a></i>
-      </div>
-    </div>
-  </div>
+            </div>
+        </div>
+      </div>  
 
   <script>
     const playerInput = document.getElementById('player-input');
